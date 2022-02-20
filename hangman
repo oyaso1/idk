@@ -1,0 +1,54 @@
+import random
+
+print('H A N G M A N')
+
+
+def hang_man():
+    words = ['python', 'java', 'kotlin', 'javascript']
+    r_w = list(random.choice(words))
+    u_r_w = ''.join(r_w)
+    counter = 8
+    hyp = list('-' * len(r_w))
+    g_list = []
+    while counter > 0:
+        print()
+        print(''.join(hyp))
+        print('Input a letter')
+        guess = input()
+        if len(guess) > 1:
+            print("You should input a single letter")
+        elif not str.islower(guess):
+            print("Please enter a lowercase English letter")
+        elif not str.isalpha(guess):
+            print("Please enter a lowercase English letter")
+        elif guess in g_list:
+            print("You've already guessed this letter")
+        elif guess not in r_w:
+            print("That letter doesn't appear in the word")
+            counter -= 1
+            g_list.append(guess)
+        else:
+            for i in range(0, len(r_w)):
+                if r_w[i] == guess:
+                    hyp[i] = guess
+                    g_list.append(guess)
+                if hyp == r_w:
+                    print(f"""You guessed the word {u_r_w}!
+You survived!""")
+                    break
+            else:
+                continue
+            break
+    else:
+        print('You lost!')
+
+
+while True:
+    print('Type "play" to play the game, "exit" to quit:')
+    x = input()
+    if x == "play":
+        hang_man()
+    elif x == "exit":
+        break
+    else:
+        continue
